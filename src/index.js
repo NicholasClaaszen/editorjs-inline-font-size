@@ -10,7 +10,7 @@ class FontSizeTool {
 
   static get sanitize() {
     return {
-      span: {
+      font: {
         size: true,
         face: true
       },
@@ -145,7 +145,8 @@ class FontSizeTool {
 
   surround(range) {
     if (this.selectedFontSize) {
-      document.execCommand('fontSize', false, this.selectedFontSize);
+      document.execCommand("styleWithCSS", 0, true);
+      document.execCommand('fontSize', false, `${this.selectedFontSize}px`);
     }
   }
 
