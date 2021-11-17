@@ -10,7 +10,7 @@ class FontSizeTool {
 
   static get sanitize() {
     return {
-      font: {
+      span: {
         size: true,
         face: true
       },
