@@ -68,13 +68,13 @@ class FontSizeTool {
 
   addFontSizeOptions() {
     const fontSizeList = [
-      { label: '3', value: '1' },
-      { label: '13', value: '2' },
-      { label: '16', value: '3' },
-      { label: '18', value: '4' },
-      { label: '24', value: '5' },
-      { label: '32', value: '6' },
-      { label: '72', value: '7' }
+      { label: '12', value: '12' },
+      { label: '13', value: '13' },
+      { label: '14', value: '14' },
+      { label: '15', value: '15' },
+      { label: '16', value: '16' },
+      { label: '17', value: '17' },
+      { label: '18', value: '18' }
     ];
     this.selectionList = this.make('div', 'selectionList');
     const selectionListWrapper = this.make('div', 'selection-list-wrapper');
