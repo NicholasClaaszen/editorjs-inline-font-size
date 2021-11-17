@@ -145,7 +145,7 @@ class FontSizeTool {
 
   surround(range) {
     if (this.selectedFontSize) {
-      range.pasteHTML(`<span style='font-size: ${this.selectedFontSize}px;'>" + selection.htmlText + "</span>`);
+      range.innerHTML(`<span style='font-size: ${this.selectedFontSize}px;'>" + selection.htmlText + "</span>`);
     }
   }
 
