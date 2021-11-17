@@ -10,10 +10,14 @@ class FontSizeTool {
 
   static get sanitize() {
     return {
-      font: {
-        size: true,
-        face: true
-      },
+      span: function (el) {
+        console.log(el);
+        if (el.classList.length > 0) {
+          return {class: true};
+        } else {
+          return false;
+        }
+      }
     };
   }
   static get isInline() {
@@ -143,11 +147,43 @@ class FontSizeTool {
     }
   }
 
-  surround(range) {
-    if (this.selectedFontSize) {
-      let selection = document.selection.createRange();
-      selection.innerHTML(`<span style='font-size: ${this.selectedFontSize}px;'>" + selection.htmlText + "</span>`);
+   surround(range) {
+    if (!range) {
+      return;
     }
+
+    let termWrapper = this.api.selection.findParentTag(this.tag);
+    console.log("surround", termWrapper);
+
+    if (termWrapper) {
+      this.unwrap(termWrapper);
+    } else {
+      this.wrap(range);
+    }
+  }
+
+  wrap(range) {
+    let span = document.createElement(this.tag);
+
+    span.style.fontSize = `${this.selectedFontSize}px`;
+
+    span.appendChild(range.extractContents());
+    range.insertNode(span);
+
+    this.api.selection.expandToTag(span);
+  }
+  unwrap(termWrapper) {
+    this.api.selection.expandToTag(termWrapper);
+
+    let sel = window.getSelection();
+    let range = sel.getRangeAt(0);
+
+    let unwrappedContent = range.extractContents();
+
+    termWrapper.parentNode.removeChild(termWrapper);
+    range.insertNode(unwrappedContent);
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
 
   getComputedFontStyle(node) {
